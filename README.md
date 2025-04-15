@@ -25,31 +25,6 @@ This lab shows you how to create, deploy, and test a Cloud Run function using th
 *   Deploy and test the function. 🚀
 *   View logs. 🪵
 
-## ⚙️ Setup and Requirements ⚙️
-
-Before starting the lab, ensure you have:
-
-*   Access to a standard internet browser (Chrome browser recommended). 🌐
-*   An Incognito or private browser window to avoid account conflicts. 👤
-*   Sufficient time to complete the lab (approximately 20 minutes). ⏱️
-
-**Important:** Use only the student account provided for this lab. Using your personal Google Cloud account may incur charges. ⚠️
-
-## 👨‍💻 Lab Instructions 👨‍💻
-
-### 1. Start the Lab and Sign in to the Google Cloud Console
-
-1.  Click the **Start Lab** button. ▶️
-2.  If prompted, select your payment method. 💳
-3.  On the left, find the **Lab Details** pane. ℹ️
-4.  Click **Open Google Cloud console** (or right-click and select **Open Link in Incognito Window**). 🖱️
-5.  Copy the **Username** from the Lab Details pane and paste it into the Sign in dialog. Click **Next**. ➡️
-6.  Copy the **Password** from the Lab Details pane and paste it into the Welcome dialog. Click **Next**. ➡️
-7.  Accept the terms and conditions. 👍
-8.  Do not add recovery options or two-factor authentication. 🚫
-9.  Do not sign up for free trials. 🚫
-10. The Google Cloud console will open in a new tab. ☁️
-
 ### **Task 1: Create a function**
 
 In this step, you're going to create a Cloud Run function using the console.
