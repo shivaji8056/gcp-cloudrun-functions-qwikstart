@@ -1,0 +1,79 @@
+# ☁️ Pub/Sub Qwik Start - Python 🐍
+
+## Overview 📝
+
+This lab guides you through the basics of Google Cloud Pub/Sub using Python. You'll learn how to:
+
+*   Create, delete, and list Pub/Sub topics and subscriptions.
+*   Publish messages to a topic.
+*   Use a pull subscriber to output individual topic messages.
+
+## Prerequisites ✅
+
+*   A Google Cloud project.
+*   Basic understanding of Python.
+*   Familiarity with the command line.
+
+## Steps 🚀
+
+### 1. Activate Cloud Shell 🐚
+
+*   Click the **Activate Cloud Shell** icon at the top of the Google Cloud console.
+*   Authorize Cloud Shell to use your credentials.
+
+### 2. Create a Virtual Environment 📦
+
+```bash
+sudo apt-get install -y virtualenv
+python3 -m venv venv
+source venv/bin/activate
+
+3. Install the Client Library 📚
+pip install --upgrade google-cloud-pubsub
+
+4. Get the Sample Code 📂
+git clone https://github.com/googleapis/python-pubsub.git
+cd python-pubsub/samples/snippets
+
+5. Pub/Sub Basics 💡
+Topic: A shared string that allows applications to connect.
+Publisher: Sends messages to a Pub/Sub topic.
+Subscriber: Creates a subscription to a topic to receive messages.
+6. Create a Topic ➕
+python publisher.py $GOOGLE_CLOUD_PROJECT create MyTopic
+
+Verify the topic creation:
+python publisher.py $GOOGLE_CLOUD_PROJECT list
+
+You can also verify in the Cloud Console: Navigation menu > Pub/Sub > Topics.
+7. Create a Subscription 🎫
+python subscriber.py $GOOGLE_CLOUD_PROJECT create MyTopic MySub
+
+Verify the subscription creation:
+python subscriber.py $GOOGLE_CLOUD_PROJECT list-in-project
+
+You can also verify in the Cloud Console: Navigation menu > Pub/Sub > Subscriptions.
+8. Publish Messages 📢
+gcloud pubsub topics publish MyTopic --message "Hello"
+gcloud pubsub topics publish MyTopic --message "Publisher's name is <YOUR NAME>"
+gcloud pubsub topics publish MyTopic --message "Publisher likes to eat <FOOD>"
+gcloud pubsub topics publish MyTopic --message "Publisher thinks Pub/Sub is awesome"
+
+
+Replace <YOUR NAME> with your name and <FOOD> with a food you like.
+
+9. View Messages 👀
+python subscriber.py $GOOGLE_CLOUD_PROJECT receive MySub
+
+Cleanup (Optional) 🧹
+
+To delete the resources created in this lab:
+
+python publisher.py $GOOGLE_CLOUD_PROJECT delete MyTopic
+python subscriber.py $GOOGLE_CLOUD_PROJECT delete MySub
+
+Congratulations 🎉
+
+You have successfully completed the Pub/Sub Qwik Start lab! You now know how to create topics and subscriptions, publish messages, and receive messages using Python.
+
+
