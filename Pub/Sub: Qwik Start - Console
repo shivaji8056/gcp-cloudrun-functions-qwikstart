@@ -1,0 +1,75 @@
+
+# ☁️ Pub/Sub Qwik Start - Console 🚀
+
+**Welcome!** This guide walks you through the basics of Google Cloud Pub/Sub using the Google Cloud Console. Pub/Sub is a powerful messaging service for exchanging event data between applications and services.
+
+## 🎯 What You'll Learn
+
+*   **Create a topic:**  A container to hold your data.
+*   **Create a subscription:**  A way to access the data published to the topic.
+*   **Publish and consume messages:** Send data to the topic and retrieve it using a pull subscriber.
+
+## ⚙️ Prerequisites
+
+*   A Google Cloud project.
+*   Basic familiarity with the Google Cloud Console.
+
+## 🚀 Let's Get Started!
+
+### 1. Activate Cloud Shell 🐚
+
+Cloud Shell provides a ready-to-use environment with all the necessary tools.
+
+1.  Click the **Activate Cloud Shell** icon at the top of the Google Cloud console.
+
+*
+
+2.  Click through the following windows:
+
+*   **Continue** through the Cloud Shell information window.
+*   **Authorize** Cloud Shell to use your credentials.
+
+3.  Verify your project is set correctly:
+
+```bash
+gcloud config list project
+
+
+You should see output like:
+
+[core]
+project = "YOUR_PROJECT_ID"
+
+2. Setting up Pub/Sub ⚙️
+Navigate to Pub/Sub > Topics in the Google Cloud Console. You can find this under "Analytics" in the navigation menu.
+Click Create topic.
+In the Create a topic dialog:
+Topic ID: MyTopic
+Leave other fields at their default values.
+Click Create.
+
+and select Create subscription.
+
+In the Add subscription to topic dialog:
+
+Name: MySub
+
+Delivery Type: Pull
+
+Leave all other options at the default values.
+
+Click Create.
+
+✅ Check your progress: Click the "Check my progress" button in the lab instructions to verify you've created the subscription correctly.
+
+4. Publish a Message ✉️
+Navigate back to Pub/Sub > Topics and open the MyTopic page.
+In the Topics details page, click the Messages tab and then click Publish Message.
+Enter Hello World in the Message field and click Publish.
+
+. 2. Enter the following command in Cloud Shell:
+
+gcloud pubsub subscriptions pull --auto-ack MySub
+
+The message appears in the DATA field of the command output. It will be base64 encoded.
+
