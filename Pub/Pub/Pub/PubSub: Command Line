@@ -1,0 +1,109 @@
+# 📢 Pub/Sub Qwik Start - Command Line 🚀
+
+## Overview 📝
+
+Pub/Sub is a messaging service for exchanging event data among applications and services. It decouples senders and receivers, enabling secure and highly available communication between independent applications. Pub/Sub offers low-latency/durable messaging, commonly used for asynchronous workflows, event notifications, and streaming data.
+
+## What You'll Learn 🎓
+
+In this lab, you will:
+
+*   ✅ Create, delete, and list Pub/Sub **topics** and **subscriptions**.
+*   📤 Publish messages to a topic.
+*   📥 Use a **pull subscriber**.
+
+## ☁️ Activate Cloud Shell
+
+Cloud Shell is a virtual machine pre-loaded with development tools. It provides a persistent 5GB home directory and runs on Google Cloud.
+
+1.  Click **Activate Cloud Shell** 🖱️ at the top of the Google Cloud console.
+2.  Click through the following windows:
+*   Continue through the Cloud Shell information window.
+*   Authorize Cloud Shell to use your credentials to make Google Cloud API calls.
+
+Once connected, you're authenticated, and the project is set to your `PROJECT_ID`.
+
+```bash
+gcloud auth list
+gcloud config list project
+
+📚 Pub/Sub Basics
+
+Pub/Sub is an asynchronous global messaging service. Key terms:
+
+Topic: A shared string for applications to connect.
+Publishing: Pushing messages to a Cloud Pub/Sub topic.
+Subscribing: Creating a "subscription" to a topic to receive messages. Subscribers must acknowledge each message within a configurable time.
+
+Producer publishes messages to a topic, and a consumer creates a subscription to receive them.
+
+🚦 Task 1. Pub/Sub Topics
+
+Pub/Sub is preinstalled in Cloud Shell.
+
+Create a topic:
+gcloud pubsub topics create myTopic
+
+Create two more topics:
+gcloud pubsub topics create Test1
+gcloud pubsub topics create Test2
+
+List topics:
+gcloud pubsub topics list
+
+Delete topics:
+gcloud pubsub topics delete Test1
+gcloud pubsub topics delete Test2
+
+Verify deletion:
+gcloud pubsub topics list
+
+📦 Task 2. Pub/Sub Subscriptions
+Create a subscription:
+gcloud pubsub subscriptions create --topic myTopic mySubscription
+
+Add two more subscriptions:
+gcloud pubsub subscriptions create --topic myTopic Test1
+gcloud pubsub subscriptions create --topic myTopic Test2
+
+List subscriptions:
+gcloud pubsub topics list-subscriptions myTopic
+
+Delete subscriptions:
+gcloud pubsub subscriptions delete Test1
+gcloud pubsub subscriptions delete Test2
+
+Verify deletion:
+gcloud pubsub topics list-subscriptions myTopic
+
+🤔 Test Your Understanding
+True/False: To receive messages published to a topic, you must create a subscription to that topic. Answer: True ✅
+📤 Task 3. Pub/Sub Publishing and Pulling a Single Message
+Publish a message:
+gcloud pubsub topics publish myTopic --message "Hello"
+
+Publish more messages:
+gcloud pubsub topics publish myTopic --message "Publisher's name is <YOUR NAME>"
+gcloud pubsub topics publish myTopic --message "Publisher likes to eat <FOOD>"
+gcloud pubsub topics publish myTopic --message "Publisher thinks Pub/Sub is awesome"
+
+Pull messages:
+gcloud pubsub subscriptions pull mySubscription --auto-ack
+
+The pull command without flags outputs only one message.
+Once a message is outputted, you can't access it again with pull.
+Run the pull command multiple times to see all messages.
+📥 Task 4. Pub/Sub Pulling All Messages from Subscriptions
+Publish more messages:
+gcloud pubsub topics publish myTopic --message "Publisher is starting to get the hang of Pub/Sub"
+gcloud pubsub topics publish myTopic --message "Publisher wonders if all messages will be pulled"
+gcloud pubsub topics publish myTopic --message "Publisher will have to test to find out"
+
+Pull all messages with the limit flag:
+gcloud pubsub subscriptions pull mySubscription --limit=3
+
+🎉 Congratulations!
+
+You've learned the basics of Pub/Sub topics, subscriptions, the pull command, and flags! You're on your way to becoming a Pub/Sub master! 🏆
+
+
