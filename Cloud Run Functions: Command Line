@@ -1,0 +1,133 @@
+# ☁️ Cloud Run Function: Hello World! 🌍
+
+## Overview 📝
+
+This guide walks you through creating, deploying, and testing a simple Cloud Run function triggered by a Pub/Sub topic. Cloud Run functions are **event-driven**, meaning they only run when triggered by an event, making them ideal for quick tasks or those not requiring constant uptime.
+
+**Example Use Cases:**
+
+*   🖼️ Automatically generate thumbnails for images uploaded to Cloud Storage.
+*   📱 Send notifications to users when new messages arrive in Pub/Sub.
+*   📊 Process data from Cloud Firestore and generate reports.
+
+You'll write your code in Node.js and deploy it with a few commands.
+
+## What You'll Do ✅
+
+*   Create a Cloud Run function.
+*   Deploy and test the Cloud Run function.
+*   View logs.
+
+## Prerequisites ⚙️
+
+*   A Google Cloud project.
+*   Basic understanding of command-line interface.
+
+## Steps 🚀
+
+### 1. Activate Cloud Shell 🐚
+
+Cloud Shell provides a pre-configured environment with the necessary tools.
+
+1.  Click the **Activate Cloud Shell** icon at the top of the Google Cloud console.
+2.  Authorize Cloud Shell to use your credentials.
+
+```bash
+# (Optional) List the active account
+gcloud auth list
+
+# (Optional) List the project ID
+gcloud config list project
+2. Create a Function 🏗️
+You'll create a function named helloWorld that logs a message when triggered by a Pub/Sub event.
+
+Set the default region:
+gcloud config set run/region REGION
+Replace REGION with your desired Google Cloud region (e.g., us-central1).
+
+Create a directory for the function code:
+mkdir gcf_hello_world && cd $_
+Create and edit index.js:
+nano index.js
+Paste the following code into index.js:
+
+const functions = require('@google-cloud/functions-framework');
+
+// Register a CloudEvent callback with the Functions Framework that will
+// be executed when the Pub/Sub trigger topic receives a message.
+functions.cloudEvent('helloPubSub', cloudEvent => {
+  // The Pub/Sub message is passed as the CloudEvent's data payload.
+  const base64name = cloudEvent.data.message.data;
+
+  const name = base64name
+    ? Buffer.from(base64name, 'base64').toString()
+    : 'World';
+
+  console.log(`Hello, ${name}!`);
+});
+Exit nano (Ctrl+x), save (Y), and press Enter.
+
+Create and edit package.json:
+nano package.json
+Paste the following code into package.json:
+
+{
+  "name": "gcf_hello_world",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.0.0"
+  }
+}
+Exit nano (Ctrl+x), save (Y), and press Enter.
+
+Install dependencies:
+npm install
+3. Deploy Your Function 🚀
+Deploy the function to a Pub/Sub topic named cf-demo.
+
+gcloud functions deploy nodejs-pubsub-function \
+--gen2 \
+--runtime=nodejs20 \
+--region=REGION \
+--source=. \
+--entry-point=helloPubSub \
+--trigger-topic cf-demo \
+--stage-bucket PROJECT_ID-bucket \
+--service-account cloudfunctionsa@PROJECT_ID.iam.gserviceaccount.com \
+--allow-unauthenticated
+Important:
+
+Replace REGION with your chosen region.
+Replace PROJECT_ID with your Google Cloud project ID.
+If prompted about a service account, select "n".
+Verify the function status:
+
+gcloud functions describe nodejs-pubsub-function \
+--region=REGION
+An ACTIVE status indicates successful deployment.
+
+4. Test the Function 🧪
+Publish a message to the cf-demo Pub/Sub topic:
+
+gcloud pubsub topics publish cf-demo --message="Cloud Function Gen2"
+5. View Logs 🪵
+Check the logs to see the function's output:
+
+gcloud functions logs read nodejs-pubsub-function \
+--region=REGION
+Note: Logs may take a few minutes to appear. Alternatively, you can view logs in the Google Cloud console under Logging > Logs Explorer.
+
+You should see log entries similar to:
+
+LEVEL:
+NAME: nodejs-pubsub-function
+EXECUTION_ID: h4v6akxf4sxt
+TIME_UTC: 2024-08-05 15:15:25.723
+LOG: Hello, Cloud Function Gen2!
+Congratulations! 🎉
+You have successfully created, deployed, and tested a Cloud Run function!
